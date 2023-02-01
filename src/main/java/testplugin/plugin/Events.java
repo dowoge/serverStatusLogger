@@ -1,12 +1,8 @@
 package testplugin.plugin;
 
 import org.bukkit.Bukkit;
-import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.HandlerList;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -14,14 +10,14 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import java.awt.*;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 public class Events implements Listener {
 
-    private Logger logger;
-    private WebhookEventLogger plugin;
+    private final Logger logger;
+    private final WebhookEventLogger plugin;
     private String webhookURL;
 
     public Events(Logger logger, WebhookEventLogger plugin, String webhookURL) {
@@ -43,7 +39,7 @@ public class Events implements Listener {
         try {
             Webhook.execute();
         } catch (IOException e) {
-            logger.severe(e.getStackTrace().toString());
+            logger.severe(Arrays.toString(e.getStackTrace()));
         }
     }
     @EventHandler(priority = EventPriority.LOW)
@@ -59,7 +55,7 @@ public class Events implements Listener {
         try {
             Webhook.execute();
         } catch (IOException e) {
-            logger.severe(e.getStackTrace().toString());
+            logger.severe(Arrays.toString(e.getStackTrace()));
         }
     }
 
@@ -70,35 +66,13 @@ public class Events implements Listener {
 
         DiscordWebhook Webhook = new DiscordWebhook(webhookURL);
 
-        Webhook.setContent('<' + player.getName() + "> " + message.replaceAll("(@everyone|@here)", "`$&`"));
+        Webhook.setContent('<' + player.getName() + "> " + message.replaceAll("(<?[@|#]&?.+>?)","`$1`"));
 
         try {
             Webhook.execute();
         } catch (IOException e) {
-            logger.severe(e.getStackTrace().toString());
+            logger.severe(Arrays.toString(e.getStackTrace()));
         }
-    }
-
-    public static int getLvlForXP(int xp) {
-        if (xp <= 255) {
-            return xp  / 17;
-        } else if (xp > 272 && xp < 887) {
-            return (int) ((Math.sqrt(24 * xp - 5159) + 59) / 6);
-        } else if (xp > 825) {
-            return (int) ((Math.sqrt(56 * xp - 32511) + 303) / 14);
-        }
-        return 0;
-    }
-
-    public static int toLevel(int xp) {
-        if (xp <= 352) {
-            return (int) Math.round(Math.sqrt(xp+9)-3);
-        } else if (xp >= 394 && xp <= 1507) {
-            return (int) Math.round((Math.sqrt(40*xp-7839)+81)*0.1);
-        } else if (xp >= 1628) {
-            return (int) Math.round((Math.sqrt(72*xp-54215)+325)/18);
-        }
-        return 0;
     }
 
     @EventHandler(priority = EventPriority.LOW)
@@ -113,7 +87,7 @@ public class Events implements Listener {
         try {
             Webhook.execute();
         } catch (IOException e) {
-            logger.severe(e.getStackTrace().toString());
+            logger.severe(Arrays.toString(e.getStackTrace()));
         }
     }
 
