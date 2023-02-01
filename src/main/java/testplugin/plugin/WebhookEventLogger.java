@@ -1,10 +1,11 @@
 package testplugin.plugin;
 
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Objects;
 
 public final class WebhookEventLogger extends JavaPlugin {
     private String webhookURL;
@@ -16,13 +17,11 @@ public final class WebhookEventLogger extends JavaPlugin {
 
         config.loadConfig();
 
-        getLogger().info("Starting");
-
         this.webhookURL = config.getValue("webhookURL").toString();
 
         getServer().getPluginManager().registerEvents(new Events(getLogger(), this, webhookURL), this);
 
-        getCommand("webhook").setExecutor(new setWebhookCommand());
+        Objects.requireNonNull(getCommand("webhook")).setExecutor(new setWebhookCommand());
 
 
         DiscordWebhook Webhook = new DiscordWebhook(webhookURL);
@@ -34,7 +33,7 @@ public final class WebhookEventLogger extends JavaPlugin {
         try {
             Webhook.execute();
         } catch (IOException e) {
-            getLogger().severe(e.getStackTrace().toString());
+            getLogger().severe(Arrays.toString(e.getStackTrace()));
         }
     }
     @Override
@@ -49,7 +48,7 @@ public final class WebhookEventLogger extends JavaPlugin {
         try {
             Webhook.execute();
         } catch (IOException e) {
-            getLogger().severe(e.getStackTrace().toString());
+            getLogger().severe(Arrays.toString(e.getStackTrace()));
         }
     }
 }

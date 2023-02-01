@@ -8,9 +8,9 @@ public class Config {
     private static Plugin plugin;
 
     public Config(Plugin plugin) {
-        this.plugin = plugin;
+        Config.plugin = plugin;
     }
-    public static void loadConfig() {
+    public void loadConfig() {
 
         String webhookURLPath = "webhookURL";
 
@@ -22,10 +22,10 @@ public class Config {
         plugin.saveConfig();
     }
 
-    public static void setValue(String path, String value) {
+    public void setValue(String path, String value) {
         plugin.getConfig().set(path,value);
     }
-    public static Object getValue(String path) {
+    public Object getValue(String path) {
         return plugin.getConfig().get(path);
     }
 }
