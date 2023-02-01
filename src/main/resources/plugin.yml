@@ -1,0 +1,22 @@
+name: WebhookEventLogger
+version: '${project.version}'
+main: testplugin.plugin.WebhookEventLogger
+api-version: 1.19
+authors: [ tommy ]
+description: test
+
+commands:
+  webhook:
+
+    permission: webhook.can_set
+
+    description: Set the webhook url used to send in-game event logs
+
+    permission-message: You do not have permission to use this command.
+
+    usage: /<command> [url]
+
+permissions:
+  webhook.can_set:
+    description: Allows to set webhook url
+    default: op
