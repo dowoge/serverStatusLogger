@@ -66,7 +66,7 @@ public class Events implements Listener {
 
         DiscordWebhook Webhook = new DiscordWebhook(webhookURL);
 
-        Webhook.setContent('<' + player.getName() + "> " + message.replaceAll("(<?[@|#]&?.+>?)","`$1`"));
+        Webhook.setContent('<' + player.getName() + "> " + message.replaceAll("(<[@#]\\S+>|@\\S+|#\\S+)","`$1`"));
 
         try {
             Webhook.execute();
