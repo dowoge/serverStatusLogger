@@ -33,7 +33,6 @@ commands:
     permission-message: You do not have permission to use this command.
 
     usage: /<command> [url]
-
 permissions:
   webhook.can_set:
     description: Allows to set webhook/discord bot settings

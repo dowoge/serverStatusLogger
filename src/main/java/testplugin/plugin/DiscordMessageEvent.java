@@ -3,11 +3,8 @@ package testplugin.plugin;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
-
-import java.util.Objects;
 
 public class DiscordMessageEvent extends ListenerAdapter {
 

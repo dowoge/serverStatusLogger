@@ -8,7 +8,6 @@ import testplugin.plugin.Commands.setDiscordRelayChannelIdCommand;
 import testplugin.plugin.Commands.setDiscordTokenCommand;
 import testplugin.plugin.Commands.setWebhookCommand;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.Arrays;
