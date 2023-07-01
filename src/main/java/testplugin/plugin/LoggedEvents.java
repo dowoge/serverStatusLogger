@@ -1,5 +1,6 @@
 package testplugin.plugin;
 
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -7,20 +8,24 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import testplugin.plugin.Events.DiscordRelayChannelIdChangedEvent;
+import testplugin.plugin.Events.DiscordTokenChangedEvent;
+import testplugin.plugin.Events.WebhookChangedEvent;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
-public class Events implements Listener {
+public class LoggedEvents implements Listener {
 
     private final Logger logger;
     private final WebhookEventLogger plugin;
     private String webhookURL;
 
-    public Events(Logger logger, WebhookEventLogger plugin, String webhookURL) {
+    public LoggedEvents(Logger logger, WebhookEventLogger plugin, String webhookURL) {
         this.logger = logger;
         this.plugin = plugin;
         this.webhookURL = webhookURL;
@@ -83,6 +88,23 @@ public class Events implements Listener {
         int level = event.getPlayer().getLevel();
 
         Webhook.setContent(deathMessage + " (had " + level + (level != 1 ? " levels" : " level") + ")");
+
+        try {
+            Webhook.execute();
+        } catch (IOException e) {
+            logger.severe(Arrays.toString(e.getStackTrace()));
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOW)
+    public void onPlayerAdvancement(PlayerAdvancementDoneEvent event) {
+        DiscordWebhook Webhook = new DiscordWebhook(webhookURL);
+
+        String advancementName = PlainTextComponentSerializer.plainText().serialize(event.getAdvancement().getDisplay().displayName());
+
+        Player player = event.getPlayer();
+
+        Webhook.setContent(player.getName() + " has made the advancement `" + advancementName + "`");
 
         try {
             Webhook.execute();

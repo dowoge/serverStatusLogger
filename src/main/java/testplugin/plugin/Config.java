@@ -3,6 +3,10 @@ package testplugin.plugin;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.Hashtable;
+
 public class Config {
 
     private static Plugin plugin;
@@ -12,11 +16,24 @@ public class Config {
     }
     public void loadConfig() {
 
-        String webhookURLPath = "webhookURL";
+        Dictionary<String, String> configs = new Hashtable<>();
+
+        configs.put("webhookURL","https://discord.com/api/webhooks/xxx/aaaa-bbbb-ccc");
+
+        configs.put("discordBotToken","TOKEN");
+
+        configs.put("discordRelayChannel","SnowflakeID");
 
         FileConfiguration config = plugin.getConfig();
 
-        config.addDefault(webhookURLPath,"https://discord.com/api/webhooks/xxx/aaaa-bbbb-ccc");
+
+
+        Enumeration<String> configIterator = configs.keys();
+        while (configIterator.hasMoreElements()) {
+            String configPath = configIterator.nextElement();
+            String configDefault = configs.get(configPath);
+            config.addDefault(configPath,configDefault);
+        }
         config.options().copyDefaults(true);
 
         plugin.saveConfig();

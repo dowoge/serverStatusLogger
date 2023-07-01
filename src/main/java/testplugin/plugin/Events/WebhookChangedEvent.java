@@ -1,4 +1,4 @@
-package testplugin.plugin;
+package testplugin.plugin.Events;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

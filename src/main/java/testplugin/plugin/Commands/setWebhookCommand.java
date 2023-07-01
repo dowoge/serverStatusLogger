@@ -1,4 +1,4 @@
-package testplugin.plugin;
+package testplugin.plugin.Commands;
 
 
 import org.bukkit.Bukkit;
@@ -7,6 +7,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import testplugin.plugin.Events.WebhookChangedEvent;
 
 public class setWebhookCommand implements CommandExecutor {
     // This method is called, when somebody uses our command
