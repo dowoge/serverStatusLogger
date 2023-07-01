@@ -99,4 +99,22 @@ public class Events implements Listener {
         config.setValue("webhookURL",this.webhookURL);
         this.plugin.saveConfig();
     }
+
+    @EventHandler(priority = EventPriority.LOW)
+    public void onDiscordTokenChanged(DiscordTokenChangedEvent event) {
+        String discordToken = event.getMessage();
+        Config config = new Config(this.plugin);
+        logger.warning("discord token changed!");
+        config.setValue("discordBotToken",discordToken);
+        this.plugin.saveConfig();
+    }
+
+    @EventHandler(priority = EventPriority.LOW)
+    public void onDiscordRelayChannelIdChanged(DiscordRelayChannelIdChangedEvent event) {
+        String discordRelayChannelId = event.getMessage();
+        Config config = new Config(this.plugin);
+        logger.warning("discord relay channel id changed!");
+        config.setValue("discordRelayChannel",discordRelayChannelId);
+        this.plugin.saveConfig();
+    }
 }

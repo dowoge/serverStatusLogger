@@ -15,8 +15,27 @@ commands:
     permission-message: You do not have permission to use this command.
 
     usage: /<command> [url]
+  discordtoken:
+
+    permission: webhook.can_set
+
+    description: Set the discord relay bot token used to relay discord messages
+
+    permission-message: You do not have permission to use this command.
+
+    usage: /<command> [url]
+  discordrelaychannelid:
+
+    permission: webhook.can_set
+
+    description: Set the discord relay bot channel id used to relay discord messages
+
+    permission-message: You do not have permission to use this command.
+
+    usage: /<command> [url]
 
 permissions:
   webhook.can_set:
-    description: Allows to set webhook url
+    description: Allows to set webhook/discord bot settings
     default: op
+
