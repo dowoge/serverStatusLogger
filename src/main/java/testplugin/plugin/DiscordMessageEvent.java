@@ -20,7 +20,7 @@ public class DiscordMessageEvent extends ListenerAdapter {
         User author = event.getAuthor();
         String message = event.getMessage().getContentStripped();
         if (event.isFromGuild() && !author.isBot() && event.getGuildChannel().getId().equals(config.getValue("discordRelayChannel").toString())) {
-            plugin.getServer().broadcastMessage(ChatColor.BLUE + "[DISCORD] " + ChatColor.GRAY + author.getEffectiveName() + ChatColor.WHITE + ": " + message);
+            plugin.getServer().broadcastMessage(ChatColor.BLUE + "[DISCORD] " + ChatColor.GRAY + author.getEffectiveName() + ": " + ChatColor.WHITE + message);
         }
     }
 }
